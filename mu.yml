@@ -52,7 +52,7 @@ templates:
           Stages:
             - Name: AcceptanceTesting
               Actions:
-              - Name: ProvisionEnvironment
+              - Name: PMDProvisionEnvironment
                 ActionTypeId:
                   Category: Invoke
                   Owner: AWS
@@ -64,7 +64,7 @@ templates:
                   UserParameters:
                     Ref: AWS::StackName
                 RunOrder: 1
-              - Name: InfrastructureAnalysis
+              - Name: PMDInfrastructureAnalysis
                 ActionTypeId:
                   Category: Invoke
                   Owner: AWS
@@ -76,7 +76,7 @@ templates:
                   UserParameters:
                     Ref: AWS::StackName
                 RunOrder: 1
-              - Name: ConfigureEnvironment
+              - Name: PMDConfigureEnvironment
                 ActionTypeId:
                   Category: Invoke
                   Owner: AWS
