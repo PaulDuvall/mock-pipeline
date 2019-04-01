@@ -52,7 +52,7 @@ templates:
           Stages:
             - Name: AcceptanceTesting
               Actions:
-              - Name: PMDProvisionEnvironment
+              - Name: ProvisionEnvironment
                 ActionTypeId:
                   Category: Invoke
                   Owner: AWS
@@ -63,8 +63,8 @@ templates:
                     Ref: CodePipelineLambdaDummy
                   UserParameters:
                     Ref: AWS::StackName
-                RunOrder: 1
-              - Name: PMDInfrastructureAnalysis
+                RunOrder: 20
+              - Name: CfnNagLinting
                 ActionTypeId:
                   Category: Invoke
                   Owner: AWS
@@ -75,8 +75,8 @@ templates:
                     Ref: CodePipelineLambdaDummy
                   UserParameters:
                     Ref: AWS::StackName
-                RunOrder: 1
-              - Name: PMDConfigureEnvironment
+                RunOrder: 10
+              - Name: ConfigureEnvironment
                 ActionTypeId:
                   Category: Invoke
                   Owner: AWS
@@ -87,7 +87,7 @@ templates:
                     Ref: CodePipelineLambdaDummy
                   UserParameters:
                     Ref: AWS::StackName
-                RunOrder: 2
+                RunOrder: 30
               - Name: AcceptanceTests
                 ActionTypeId:
                   Category: Invoke
@@ -99,19 +99,7 @@ templates:
                     Ref: CodePipelineLambdaDummy
                   UserParameters:
                     Ref: AWS::StackName
-                RunOrder: 3
-              - Name: IntegrationTests
-                ActionTypeId:
-                  Category: Invoke
-                  Owner: AWS
-                  Version: '1'
-                  Provider: Lambda
-                Configuration:
-                  FunctionName:
-                    Ref: CodePipelineLambdaDummy
-                  UserParameters:
-                    Ref: AWS::StackName
-                RunOrder: 3
+                RunOrder: 50
               - Name: DeployApp
                 ActionTypeId:
                   Category: Invoke
@@ -123,7 +111,7 @@ templates:
                     Ref: CodePipelineLambdaDummy
                   UserParameters:
                     Ref: AWS::StackName
-                RunOrder: 4
+                RunOrder: 40
               - Name: DeploymentTest
                 ActionTypeId:
                   Category: Invoke
@@ -135,7 +123,7 @@ templates:
                     Ref: CodePipelineLambdaDummy
                   UserParameters:
                     Ref: AWS::StackName
-                RunOrder: 5
+                RunOrder: 50
             - Name: Capacity
               Actions:
               - Name: PenTest
